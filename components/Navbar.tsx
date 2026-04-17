@@ -1,7 +1,10 @@
 import { Box } from 'lucide-react'
 import React from 'react'
+import { Button } from './ui/Button'
 
 const Navbar = () => {
+  const isSignedIn = false;
+  const username = 'devang';
   const handleAuthClick = () => {
 
   }
@@ -21,20 +24,36 @@ const Navbar = () => {
           </ul>
         </div>
         <div className='actions'>
-          <button
-            onClick={handleAuthClick}
-            className='login'>
-            Login
-          </button>
-          <a
-            className='cta'
-            href="#upload">
-            Get Started
-          </a>
+          {isSignedIn ? (<>
+            <span className='greeting'>
+              {username ? `Hi, ${username}` : 'Signed In'}
+            </span>
+            <Button size='sm' onClick={handleAuthClick}
+              className='cta'>
+              Log Out
+            </Button>
+
+          </>) : (
+            <>
+              <Button
+                onClick={handleAuthClick}
+                className='login'
+                size='sm' variant='ghost'>
+                Log In
+              </Button>
+              <a
+                className='cta'
+                href="#upload">
+                Get Started
+              </a>
+            </>
+          )}
+
         </div>
-      </nav>
-    </header>
+      </nav >
+    </header >
   )
 }
+
 
 export default Navbar
