@@ -1,0 +1,586 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "react-router.config.ts",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\react-router.config.ts",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_react_router_config_ts",
+      "community": 6,
+      "norm_label": "react-router.config.ts"
+    },
+    {
+      "label": "type.d.ts",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\type.d.ts",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_type_d_ts",
+      "community": 7,
+      "norm_label": "type.d.ts"
+    },
+    {
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\vite.config.ts",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_vite_config_ts",
+      "community": 8,
+      "norm_label": "vite.config.ts"
+    },
+    {
+      "label": "root.tsx",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "community": 2,
+      "norm_label": "root.tsx"
+    },
+    {
+      "label": "links()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L15",
+      "id": "root_links",
+      "community": 2,
+      "norm_label": "links()"
+    },
+    {
+      "label": "Layout()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L28",
+      "id": "root_layout",
+      "community": 2,
+      "norm_label": "layout()"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L52",
+      "id": "root_app",
+      "community": 2,
+      "norm_label": "app()"
+    },
+    {
+      "label": "ErrorBoundary()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L95",
+      "id": "root_errorboundary",
+      "community": 2,
+      "norm_label": "errorboundary()"
+    },
+    {
+      "label": "routes.ts",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes.ts",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_app_routes_ts",
+      "community": 9,
+      "norm_label": "routes.ts"
+    },
+    {
+      "label": "home.tsx",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes\\home.tsx",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_app_routes_home_tsx",
+      "community": 3,
+      "norm_label": "home.tsx"
+    },
+    {
+      "label": "meta()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes\\home.tsx",
+      "source_location": "L9",
+      "id": "home_meta",
+      "community": 3,
+      "norm_label": "meta()"
+    },
+    {
+      "label": "Home()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes\\home.tsx",
+      "source_location": "L16",
+      "id": "home_home",
+      "community": 3,
+      "norm_label": "home()"
+    },
+    {
+      "label": "visualizerId.tsx",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes\\visualizerId.tsx",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_app_routes_visualizerid_tsx",
+      "community": 4,
+      "norm_label": "visualizerid.tsx"
+    },
+    {
+      "label": "visualizerId()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes\\visualizerId.tsx",
+      "source_location": "L3",
+      "id": "visualizerid_visualizerid",
+      "community": 4,
+      "norm_label": "visualizerid()"
+    },
+    {
+      "label": "welcome.tsx",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\welcome\\welcome.tsx",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_app_welcome_welcome_tsx",
+      "community": 10,
+      "norm_label": "welcome.tsx"
+    },
+    {
+      "label": "Navbar.tsx",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Navbar.tsx",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_components_navbar_tsx",
+      "community": 1,
+      "norm_label": "navbar.tsx"
+    },
+    {
+      "label": "handleAuthClick()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Navbar.tsx",
+      "source_location": "L9",
+      "id": "navbar_handleauthclick",
+      "community": 1,
+      "norm_label": "handleauthclick()"
+    },
+    {
+      "label": "Upload.tsx",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "community": 0,
+      "norm_label": "upload.tsx"
+    },
+    {
+      "label": "processFile()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L17",
+      "id": "upload_processfile",
+      "community": 0,
+      "norm_label": "processfile()"
+    },
+    {
+      "label": "handleFileSelect()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L42",
+      "id": "upload_handlefileselect",
+      "community": 0,
+      "norm_label": "handlefileselect()"
+    },
+    {
+      "label": "handleDragEnter()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L48",
+      "id": "upload_handledragenter",
+      "community": 0,
+      "norm_label": "handledragenter()"
+    },
+    {
+      "label": "handleDragLeave()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L56",
+      "id": "upload_handledragleave",
+      "community": 0,
+      "norm_label": "handledragleave()"
+    },
+    {
+      "label": "handleDragOver()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L62",
+      "id": "upload_handledragover",
+      "community": 0,
+      "norm_label": "handledragover()"
+    },
+    {
+      "label": "handleDrop()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L67",
+      "id": "upload_handledrop",
+      "community": 0,
+      "norm_label": "handledrop()"
+    },
+    {
+      "label": "handleChange()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L83",
+      "id": "upload_handlechange",
+      "community": 0,
+      "norm_label": "handlechange()"
+    },
+    {
+      "label": "Button.tsx",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\ui\\Button.tsx",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_components_ui_button_tsx",
+      "community": 5,
+      "norm_label": "button.tsx"
+    },
+    {
+      "label": "Button()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\ui\\Button.tsx",
+      "source_location": "L13",
+      "id": "button_button",
+      "community": 5,
+      "norm_label": "button()"
+    },
+    {
+      "label": "constants.ts",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\lib\\constants.ts",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_lib_constants_ts",
+      "community": 11,
+      "norm_label": "constants.ts"
+    },
+    {
+      "label": "puter.action.ts",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\lib\\puter.action.ts",
+      "source_location": "L1",
+      "id": "d_full_stack_projects_saas_project_dreamland_lib_puter_action_ts",
+      "community": 1,
+      "norm_label": "puter.action.ts"
+    },
+    {
+      "label": "signIn()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\lib\\puter.action.ts",
+      "source_location": "L3",
+      "id": "puter_action_signin",
+      "community": 1,
+      "norm_label": "signin()"
+    },
+    {
+      "label": "signOut()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\lib\\puter.action.ts",
+      "source_location": "L4",
+      "id": "puter_action_signout",
+      "community": 1,
+      "norm_label": "signout()"
+    },
+    {
+      "label": "getCurrentUser()",
+      "file_type": "code",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\lib\\puter.action.ts",
+      "source_location": "L6",
+      "id": "puter_action_getcurrentuser",
+      "community": 1,
+      "norm_label": "getcurrentuser()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "_tgt": "root_links",
+      "source": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "target": "root_links",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "_tgt": "root_layout",
+      "source": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "target": "root_layout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "_tgt": "root_app",
+      "source": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "target": "root_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\root.tsx",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "_tgt": "root_errorboundary",
+      "source": "d_full_stack_projects_saas_project_dreamland_app_root_tsx",
+      "target": "root_errorboundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes\\home.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_app_routes_home_tsx",
+      "_tgt": "home_meta",
+      "source": "d_full_stack_projects_saas_project_dreamland_app_routes_home_tsx",
+      "target": "home_meta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes\\home.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_app_routes_home_tsx",
+      "_tgt": "home_home",
+      "source": "d_full_stack_projects_saas_project_dreamland_app_routes_home_tsx",
+      "target": "home_home",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\app\\routes\\visualizerId.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_app_routes_visualizerid_tsx",
+      "_tgt": "visualizerid_visualizerid",
+      "source": "d_full_stack_projects_saas_project_dreamland_app_routes_visualizerid_tsx",
+      "target": "visualizerid_visualizerid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Navbar.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_navbar_tsx",
+      "_tgt": "navbar_handleauthclick",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_navbar_tsx",
+      "target": "navbar_handleauthclick",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Navbar.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_src": "navbar_handleauthclick",
+      "_tgt": "puter_action_signout",
+      "source": "navbar_handleauthclick",
+      "target": "puter_action_signout"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Navbar.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_src": "navbar_handleauthclick",
+      "_tgt": "puter_action_signin",
+      "source": "navbar_handleauthclick",
+      "target": "puter_action_signin"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "_tgt": "upload_processfile",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "target": "upload_processfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "_tgt": "upload_handlefileselect",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "target": "upload_handlefileselect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "_tgt": "upload_handledragenter",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "target": "upload_handledragenter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "_tgt": "upload_handledragleave",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "target": "upload_handledragleave",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "_tgt": "upload_handledragover",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "target": "upload_handledragover",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "_tgt": "upload_handledrop",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "target": "upload_handledrop",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L83",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "_tgt": "upload_handlechange",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_upload_tsx",
+      "target": "upload_handlechange",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_src": "upload_handlefileselect",
+      "_tgt": "upload_processfile",
+      "source": "upload_processfile",
+      "target": "upload_handlefileselect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L78",
+      "weight": 1.0,
+      "_src": "upload_handledrop",
+      "_tgt": "upload_handlefileselect",
+      "source": "upload_handlefileselect",
+      "target": "upload_handledrop",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\Upload.tsx",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_src": "upload_handlechange",
+      "_tgt": "upload_handlefileselect",
+      "source": "upload_handlefileselect",
+      "target": "upload_handlechange",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\components\\ui\\Button.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_components_ui_button_tsx",
+      "_tgt": "button_button",
+      "source": "d_full_stack_projects_saas_project_dreamland_components_ui_button_tsx",
+      "target": "button_button",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\lib\\puter.action.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_lib_puter_action_ts",
+      "_tgt": "puter_action_signin",
+      "source": "d_full_stack_projects_saas_project_dreamland_lib_puter_action_ts",
+      "target": "puter_action_signin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\lib\\puter.action.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_lib_puter_action_ts",
+      "_tgt": "puter_action_signout",
+      "source": "d_full_stack_projects_saas_project_dreamland_lib_puter_action_ts",
+      "target": "puter_action_signout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Full_Stack_Projects\\Saas-Project\\DreamLand\\lib\\puter.action.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "d_full_stack_projects_saas_project_dreamland_lib_puter_action_ts",
+      "_tgt": "puter_action_getcurrentuser",
+      "source": "d_full_stack_projects_saas_project_dreamland_lib_puter_action_ts",
+      "target": "puter_action_getcurrentuser",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}

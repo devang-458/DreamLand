@@ -5,3 +5,6 @@
 # React Router
 /.react-router/
 /build/
+
+# Graphify cache (machine-specific paths)
+/graphify-out/cache/
