@@ -1,7 +1,8 @@
 import { CheckCircle2, ImageIcon, UploadIcon } from 'lucide-react';
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useOutletContext } from 'react-router';
 import { PROGRESS_INCREMENT, REDIRECT_DELAY_MS } from '../lib/constants';
+import type { AuthContext } from '../type';
 
 interface UploadProps {
     onComplete: (base64Data: string) => void;
@@ -12,13 +13,34 @@ const Upload = ({ onComplete }: UploadProps) => {
     const [isDragging, setIsDragging] = useState(false);
     const [progress, setProgress] = useState(0);
 
+    const uploadIntervalRef = useRef<number | null>(null);
+    const readerRef = useRef<FileReader | null>(null);
+    const isMountedRef = useRef(true);
+
     const { isSignedIn } = useOutletContext<AuthContext>();
+
+    useEffect(() => {
+        isMountedRef.current = true;
+        return () => {
+            isMountedRef.current = false;
+            if (uploadIntervalRef.current !== null) {
+                clearInterval(uploadIntervalRef.current);
+                uploadIntervalRef.current = null;
+            }
+            if (readerRef.current) {
+                readerRef.current.abort();
+                readerRef.current = null;
+            }
+        };
+    }, []);
 
     const processFile = (fileToProcess: File) => {
         if (!isSignedIn) return;
 
         const reader = new FileReader();
+        readerRef.current = reader;
         reader.onload = (e) => {
+            if (!isMountedRef.current) return;
             const base64Data = e.target?.result as string;
             let currentProgress = 0;
 
@@ -28,13 +50,19 @@ const Upload = ({ onComplete }: UploadProps) => {
                     currentProgress = 100;
                     setProgress(100);
                     clearInterval(interval);
+                    uploadIntervalRef.current = null;
                     setTimeout(() => {
-                        onComplete(base64Data);
+                        if (isMountedRef.current) {
+                            onComplete(base64Data);
+                        }
                     }, REDIRECT_DELAY_MS);
                 } else {
-                    setProgress(currentProgress);
+                    if (isMountedRef.current) {
+                        setProgress(currentProgress);
+                    }
                 }
             }, 100);
+            uploadIntervalRef.current = interval;
         };
         reader.readAsDataURL(fileToProcess);
     };
