@@ -1,28 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 
 const VisualizerId = () => {
-  const { id } = useParams<{ id: string }>();
-  const [image, setImage] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (id) {
-      const stored = localStorage.getItem(`visualizer_${id}`);
-      if (stored) {
-        setImage(stored);
-      }
-    }
-  }, [id]);
-
-  if (!image) {
-    return <div>Loading image...</div>;
-  }
-
+  const location = useLocation();
+  const { initialImage, name } = location.state || {};
   return (
-    <div>
-      <h1>Visualizer</h1>
-      <img src={image} alt="Uploaded floor plan" style={{ maxWidth: '100%' }} />
-    </div>
+    <section>
+      <h1>{name || 'Untitled Project'}</h1>
+      <div className='visualizer'>
+        {initialImage &&
+          <div className='image-container'>
+            <h2>Source Image</h2>
+            <img src={initialImage} alt='source' />
+          </div>}
+      </div>
+    </section>
   );
 }
 
