@@ -2,6 +2,7 @@ import { Box } from 'lucide-react'
 import React from 'react'
 import { Button } from './ui/Button'
 import { useOutletContext } from 'react-router'
+import type { AuthContext } from '../type'
 
 const Navbar = () => {
   const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>();
@@ -11,14 +12,14 @@ const Navbar = () => {
       try {
         await signOut();
       } catch (error) {
-        console.log(`Sign out failed : ${error}`)
+        console.error(`Sign out failed: ${error}`)
       }
       return
     }
     try {
       await signIn();
     } catch (error) {
-      console.log(`Sign In failed ${error}`)
+      console.error(`Sign In failed: ${error}`)
     }
   }
 

@@ -10,7 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { useEffect, useState } from "react";
-import { getCurrentUser, signIn as puterSignIn, signOut as puterSignOut } from "../lib/puter.action";
+import { getCurrentUser, signIn as puterSignIn, signOut as puterSignOut, initializePuter } from "../lib/puter.action";
+import type { AuthState } from "../type";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -68,17 +69,35 @@ export default function App() {
   }
 
   useEffect(() => {
-    refreshAuth()
+    const initialize = async () => {
+      await initializePuter();
+      await refreshAuth();
+    };
+    initialize();
   }, [])
 
   const signIn = async () => {
-    await puterSignIn();
-    return await refreshAuth();
+    try {
+      await puterSignIn();
+      // Add a small delay to ensure token is stored
+      await new Promise(resolve => setTimeout(resolve, 500));
+      return await refreshAuth();
+    } catch (error) {
+      console.error('Sign in error:', error);
+      return false;
+    }
   }
 
   const signOut = async () => {
-    puterSignOut();
-    return await refreshAuth();
+    try {
+      await puterSignOut();
+      // Add a small delay to ensure logout is complete
+      await new Promise(resolve => setTimeout(resolve, 500));
+      return await refreshAuth();
+    } catch (error) {
+      console.error('Sign out error:', error);
+      return false;
+    }
   }
 
   return (

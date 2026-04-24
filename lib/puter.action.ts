@@ -3,13 +3,42 @@ import type { CreateProjectParams, DesignItem } from "../type";
 import { getOrCreateHosingConfig, uploadImageToHosting } from "./puter.hosting";
 import { isHostedUrl } from "./utils";
 
-export const signIn = async () => await puter.auth.signIn();
-export const signOut = () => puter.auth.signOut();
+// Initialize Puter with proper configuration
+export const initializePuter = async () => {
+    try {
+        // The Puter.js SDK should auto-initialize, but ensure it's ready
+        if (typeof window !== 'undefined') {
+            // Puter is initialized globally via the SDK
+            console.log('Puter SDK initialized');
+        }
+    } catch (error) {
+        console.error('Failed to initialize Puter:', error);
+    }
+};
+
+export const signIn = async () => {
+    try {
+        return await puter.auth.signIn();
+    } catch (error) {
+        console.error('Puter sign in failed:', error);
+        throw error;
+    }
+};
+
+export const signOut = () => {
+    try {
+        return puter.auth.signOut();
+    } catch (error) {
+        console.error('Puter sign out failed:', error);
+        throw error;
+    }
+};
 
 export const getCurrentUser = async () => {
     try {
         return await puter.auth.getUser();
-    } catch {
+    } catch (error) {
+        console.warn('Failed to get current user:', error);
         return null;
     }
 }
@@ -34,4 +63,29 @@ export const createProject = async ({ item }: CreateProjectParams): Promise<Desi
         return null;
     }
 
+    const resolvedRender = hostedRender?.url ? 
+    hostedRender?.url 
+    : item.renderedImage && isHostedUrl(item.renderedImage)
+    ? item.renderedImage : undefined;
+
+    const {
+        sourcePath: _sourcePath, 
+        renderedPath: _renderedPath,
+        publicPath: _publicPath,
+        ...rest
+    } = item;
+
+    const payload = {
+        ...rest,
+        sourceImage: resolvedSource,
+        renderedImage: resolvedRender
+    }
+
+   try {
+
+    return payload; 
+   } catch (error) {
+    console.log("Failed to save project", error);
+    return null;
+   } 
 }
