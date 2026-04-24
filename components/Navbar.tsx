@@ -11,14 +11,14 @@ const Navbar = () => {
       try {
         await signOut();
       } catch (error) {
-        console.log(`Sign out failed : ${error}`)
+        console.error(`Sign out failed: ${error}`)
       }
       return
     }
     try {
       await signIn();
     } catch (error) {
-      console.log(`Sign In failed ${error}`)
+      console.error(`Sign In failed: ${error}`)
     }
   }
 

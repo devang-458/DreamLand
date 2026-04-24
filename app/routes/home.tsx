@@ -1,26 +1,52 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 import Navbar from "../../components/Navbar";
 import { ArrowRight, Clock, Layers } from "lucide-react";
 import { Button } from "../../components/ui/Button";
-import plan from "../../public/plan3d.png"
 import Upload from "../../components/Upload";
-import { useNavigate } from "react-router";
+import { useNavigate, useLoaderData } from "react-router";
+import { useState } from "react";
+import { createProject, listProjects } from "../../lib/puter.action";
+import type { Route } from "../+types/root";
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "DreamLand - Build beautiful spaces" },
+    { name: "description", content: "AI-First design environment for architectural visualization" },
   ];
 }
 
+export const loader = async (): Promise<DesignItem[]> => {
+  return await listProjects();
+};
+
 export default function Home() {
   const navigate = useNavigate();
+  const initialProjects = useLoaderData<DesignItem[]>();
+  const [projects, setProjects] = useState<DesignItem[]>(initialProjects || []);
 
   const handleUploadComplete = async (base64Image: string) => {
     const newId = Date.now().toString();
-    localStorage.setItem(`visualizer_${newId}`, base64Image);
-    navigate(`/visualizer/${newId}`)
+    const name = `Residence ${newId}`;
+    const newItem = {
+      id: newId, name, sourceImage: base64Image, renderedImage: undefined,
+      timestamp: Date.now()
+    }
+
+    const saved = await createProject({ item: newItem, visibility: 'private' });
+
+    if (!saved) {
+      console.error("Failed to create project");
+      return false;
+    };
+
+    setProjects((prev) => [saved, ...prev])
+    navigate(`/visualizer/${newId}`, {
+      state: {
+        initialImage: saved.sourceImage,
+        initialRender: saved.renderedImage || null,
+        name: saved.name ?? name
+      }
+    })
+
     return true;
   }
   return (
@@ -61,13 +87,13 @@ export default function Home() {
               <h3>Upload your floor plan</h3>
               <p>Supports JPG, PNG, formats up to 10MB</p>
             </div>
-            <Upload onComplete={handleUploadComplete}/>
+            <Upload onComplete={handleUploadComplete} />
 
           </div>
         </div>
       </section>
       <section className="projects">
-        <div className="section-inner"> 
+        <div className="section-inner">
           <div className="section-head">
             <div className="copy">
               <h2>Projects</h2>
@@ -75,29 +101,33 @@ export default function Home() {
             </div>
           </div>
           <div className="projects-grid">
-            <div className="project-card group">
-              <div className="preview">
-                <img src={plan} alt="Project" />
-                <div className="badge">
-                  <span>Community</span>
-                </div>
-              </div>
-              <div className="card-body">
-                <div>
-                  <h3>Project Indore</h3>
-                  <div className="meta">
-                    <Clock size={12} />
-                    <span>{new Date('01.03.2026').toLocaleDateString()}</span>
-                    <span>By Palak Jain</span>
+            {projects.map(({ id, name, renderedImage, sourceImage, timestamp }) => (
+
+
+              <div key={id} className="project-card group">
+                <div className="preview">
+                  <img src={renderedImage || sourceImage} />
+                  <div className="badge">
+                    <span>Community</span>
                   </div>
                 </div>
+                <div className="card-body">
+                  <div>
+                    <h3>{name}</h3>
+                    <div className="meta">
+                      <Clock size={12} />
+                      <span>{new Date(timestamp).toLocaleDateString()}</span>
+                      <span>By Devang</span>
+                    </div>
+                  </div>
 
-                <div className="arrow">
-                  <ArrowRight size={18} />
+                  <div className="arrow">
+                    <ArrowRight size={18} />
+                  </div>
+
                 </div>
-
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
