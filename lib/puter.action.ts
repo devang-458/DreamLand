@@ -83,9 +83,35 @@ export const createProject = async ({ item }: CreateProjectParams): Promise<Desi
 
    try {
 
-    return payload; 
+    return payload;
    } catch (error) {
     console.log("Failed to save project", error);
     return null;
-   } 
+   }
 }
+
+export const listProjects = async (): Promise<DesignItem[]> => {
+    try {
+        const projectsDir = "dreamland/projects";
+        const entries = await puter.fs.readdir(projectsDir);
+
+        if (!entries || entries.length === 0) {
+            return [];
+        }
+
+        const projects: DesignItem[] = [];
+        for (const entry of entries) {
+            if (entry.name.endsWith(".json")) {
+                const file = await puter.fs.read(`${projectsDir}/${entry.name}`);
+                const project = JSON.parse(file as string) as DesignItem;
+                projects.push(project);
+            }
+        }
+
+        // Sort by timestamp descending (newest first)
+        return projects.sort((a, b) => b.timestamp - a.timestamp);
+    } catch (error) {
+        console.warn("Failed to list projects:", error);
+        return [];
+    }
+};

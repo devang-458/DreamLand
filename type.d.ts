@@ -1,5 +1,3 @@
-import type { promises } from "dns";
-
 interface AuthState {
     isSignedIn: boolean;
     userName: string | null,

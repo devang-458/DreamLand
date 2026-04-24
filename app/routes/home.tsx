@@ -1,26 +1,27 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 import Navbar from "../../components/Navbar";
 import { ArrowRight, Clock, Layers } from "lucide-react";
 import { Button } from "../../components/ui/Button";
-import plan from "../../public/plan3d.png"
 import Upload from "../../components/Upload";
-import { useNavigate } from "react-router";
+import { useNavigate, useLoaderData } from "react-router";
 import { useState } from "react";
-import { createProject } from "../../lib/puter.action";
-import type { DesignItem } from "../../type";
+import { createProject, listProjects } from "../../lib/puter.action";
+import type { Route } from "../+types/root";
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "DreamLand - Build beautiful spaces" },
+    { name: "description", content: "AI-First design environment for architectural visualization" },
   ];
 }
 
+export const loader = async (): Promise<DesignItem[]> => {
+  return await listProjects();
+};
+
 export default function Home() {
   const navigate = useNavigate();
-
-  const [projects, setProjects] = useState<DesignItem[]>([]);
+  const initialProjects = useLoaderData<DesignItem[]>();
+  const [projects, setProjects] = useState<DesignItem[]>(initialProjects || []);
 
   const handleUploadComplete = async (base64Image: string) => {
     const newId = Date.now().toString();
@@ -41,8 +42,8 @@ export default function Home() {
     navigate(`/visualizer/${newId}`, {
       state: {
         initialImage: saved.sourceImage,
-        initialRendered: saved.renderedImage || null,
-        name
+        initialRender: saved.renderedImage || null,
+        name: saved.name ?? name
       }
     })
 
