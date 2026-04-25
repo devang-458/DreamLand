@@ -32,7 +32,7 @@ export const generate3DView = async ({ sourceImage }: Generate3DViewParams) => {
     if (!mimeType || !base64Data) throw new Error('Invalid source image payload');
 
     const response = await puter.ai.txt2img(DREAMLAND_RENDER_PROMPT, {
-        provider: 'openai-image-generation',
+        provider: 'gemini',
         model: 'gemini-2.5-flash-image-preview',
         quality: '1k', 
         input_image: base64Data, 
