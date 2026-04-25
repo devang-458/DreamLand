@@ -1,7 +1,16 @@
 import puter from "@heyputer/puter.js"
 import { getOrCreateHostingConfig, uploadImageToHosting } from "./puter.hosting";
 import { isHostedUrl } from "./utils";
-import { PUTER_WORKER_URL } from "./constants";
+
+// Get PUTER_WORKER_URL lazily to avoid module evaluation errors if env var is missing
+const getPuterWorkerUrl = (): string | null => {
+    try {
+        const { PUTER_WORKER_URL } = require('./constants');
+        return PUTER_WORKER_URL || null;
+    } catch {
+        return null;
+    }
+};
 
 // Initialize Puter with proper configuration
 export const initializePuter = async () => {
@@ -44,6 +53,7 @@ export const getCurrentUser = async () => {
 }
 
 export const createProject = async ({ item }: CreateProjectParams): Promise<DesignItem | null | undefined> => {
+    const PUTER_WORKER_URL = getPuterWorkerUrl();
     if (!PUTER_WORKER_URL) {
         console.warn('Missing VITE_PUTER_WORKER_URL: skip project save')
         return null;
@@ -99,6 +109,7 @@ export const listProjects = async (): Promise<DesignItem[]> => {
 };
 
 export const getProjects = async (): Promise<DesignItem[]> => {
+    const PUTER_WORKER_URL = getPuterWorkerUrl();
     if (!PUTER_WORKER_URL) {
         console.warn('Missing VITE_PUTER_WORKER_URL; skip history fetch;');
         return []
@@ -124,6 +135,7 @@ export const getProjects = async (): Promise<DesignItem[]> => {
 }
 
 export const getProjectById = async ({ id }: { id: string }): Promise<DesignItem | null> => {
+    const PUTER_WORKER_URL = getPuterWorkerUrl();
     if (!PUTER_WORKER_URL) {
         console.warn("Missing VITE_PUTER_WORKER_URL; skipping project fetch.");
         return null;
@@ -152,6 +164,7 @@ export const getProjectById = async ({ id }: { id: string }): Promise<DesignItem
 };
 
 export const updateProject = async ({ item }: CreateProjectParams): Promise<DesignItem | null | undefined> => {
+    const PUTER_WORKER_URL = getPuterWorkerUrl();
     if (!PUTER_WORKER_URL) {
         console.warn('Missing VITE_PUTER_WORKER_URL: skip project update')
         return null;
