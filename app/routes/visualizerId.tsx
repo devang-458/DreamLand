@@ -4,6 +4,8 @@ import { generate3DView } from '../../lib/ai.action';
 import { createProject, getProjectById, updateProject } from '../../lib/puter.action';
 import { Box, Download, RefreshCcw, Share2, TruckElectric, X } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import { fetchBlobFromUrl, getImageExtension } from '../../lib/utils';
 
 const VisualizerId = () => {
   const navigate = useNavigate();
@@ -20,6 +22,26 @@ const VisualizerId = () => {
   const [currentImage, setCurrentImage] = useState<string | null>(null);
 
   const handleBack = () => navigate('/');
+
+  const handleExport = async () => {
+    if (!currentImage) return;
+
+    try {
+      const result = await fetchBlobFromUrl(currentImage);
+      if (!result) throw new Error('Could not fetch image');
+
+      const url = URL.createObjectURL(result.blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `dreamland-render-${id || 'project'}.${getImageExtension(result.contentType, currentImage)}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Export failed:', error);
+    }
+  };
 
   const runGeneration = async (item: DesignItem) => {
     if (!id || !item.sourceImage) return;
@@ -130,7 +152,7 @@ const VisualizerId = () => {
             <div className='panel-actions'>
               <Button
                 size='sm'
-                onClick={() => { }}
+                onClick={handleExport}
                 className='export'
                 disabled={!currentImage}
               >
@@ -166,6 +188,36 @@ const VisualizerId = () => {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+        <div className='panel compare'>
+          <div className='panel-header'>
+            <div className='panel-meta'>
+              <p>Comparison</p>
+              <h3>Before and After</h3>
+            </div>
+            <div className='hint'>
+              Drag to compare
+            </div>
+          </div>
+          <div className='compare-stage'>
+            {project?.sourceImage && currentImage ? (
+              <ReactCompareSlider
+                defaultValue={50}
+                style={{ width: '100%', height: 'auto' }}
+                itemOne={<ReactCompareSliderImage src={project?.sourceImage} alt='before'
+                  className='compare-img' />}
+                itemTwo={<ReactCompareSliderImage src={currentImage || project?.renderedImage} alt='after'
+                  className='compare-img' />}
+              />
+            ) : (
+              <div className='compare-fallback'>
+                {project?.sourceImage && (
+                  <img src={project.sourceImage} alt='Before' className='compare-img' />
+                )}
+              </div>
+            )}
+
           </div>
         </div>
       </section>
