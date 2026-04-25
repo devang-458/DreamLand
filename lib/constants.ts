@@ -36,7 +36,11 @@ Do NOT invent new rooms or alter the geometry in any way.
 The output layout must strictly follow the provided image.
 
 STRICT REQUIREMENTS (do not violate):
-1) REMOVE ALL TEXT: Do not render any letters, numbers, labels, dimensions, or dimension lines. Flooring must be continuous and seamless where text used to be.
+1) ABSOLUTELY NO TEXT WHATSOEVER: The final rendered image must contain zero letters, 
+   zero numbers, zero words, zero labels, zero annotations of any kind. 
+   Room names like "storage", "closet", "balcony", "bedroom", "kitchen" must NOT appear.
+   Where labels exist in the input, replace that area with seamless flooring or wall texture.
+   If any text appears in the output, the task has FAILED.
 2) GEOMETRY MUST MATCH: Walls, rooms, door positions, and windows must follow the exact lines, angles, and layout in the provided floor plan image.
 3) NEAR-TOP-DOWN ONLY: Orthographic top-down view with a slight perspective tilt, as seen in professional real estate visualizations.
 4) CLEAN, REALISTIC OUTPUT: Crisp edges, highly detailed textures (fabric, wood grain, metal finishes, tile patterns, glass reflection). No sketch or hand-drawn look.
@@ -46,7 +50,7 @@ STRUCTURE & DETAILS:
 - Walls: Solid dark-grey walls with precise thickness, consistent height, and crisp edges.
 - Doors: Door swing arcs converted to realistic open-door models, aligned with the plan.
 - Windows: Thin perimeter lines converted into realistic glass panes with slim frames.
-- Flooring: Continuous seamless textures (wood grain, tile) with no interruptions where text used to be.
+- Flooring: Continuous seamless textures (wood grain, tile) with no text or labels anywhere.
 
 STYLE & LIGHTING:
 - Lighting: Bright, balanced, neutral daylight with warm recessed spotlights and under-cabinet LED strips in the kitchen.
