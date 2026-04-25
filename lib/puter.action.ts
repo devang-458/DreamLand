@@ -1,7 +1,7 @@
 import puter from "@heyputer/puter.js"
-import type { CreateProjectParams, DesignItem } from "../type";
 import { getOrCreateHosingConfig, uploadImageToHosting } from "./puter.hosting";
 import { isHostedUrl } from "./utils";
+import { PUTER_WORKER_URL } from "./constants";
 
 // Initialize Puter with proper configuration
 export const initializePuter = async () => {
@@ -103,7 +103,7 @@ export const listProjects = async (): Promise<DesignItem[]> => {
         for (const entry of entries) {
             if (entry.name.endsWith(".json")) {
                 const file = await puter.fs.read(`${projectsDir}/${entry.name}`);
-                const project = JSON.parse(file as string) as DesignItem;
+                const project = JSON.parse(file) as DesignItem;
                 projects.push(project);
             }
         }
@@ -113,5 +113,97 @@ export const listProjects = async (): Promise<DesignItem[]> => {
     } catch (error) {
         console.warn("Failed to list projects:", error);
         return [];
+    }
+};
+
+
+export const getProjects = async () => {
+    if(!PUTER_WORKER_URL) {
+        console.warn('Missing VITE_PUTER_WORKER_URL; skip history fetch;');
+        return []
+    }
+
+    try {
+        const response = await puter.workers.exec(`${PUTER_WORKER_URL}/api/projects/list`, { method: 'GET' });
+
+        if(!response.ok) {
+            console.error('Failed to fetch history', await response.text());
+            return [];
+        }
+
+        const data = (await response.json()) as { projects?: DesignItem[] | null };
+
+        return Array.isArray(data?.projects) ? data?.projects : [];
+    } catch (e) {
+        console.error('Failed to get projects', e);
+        return [];
+    }
+}
+
+export const getProjectById = async ({ id }: { id: string }) => {
+    if (!PUTER_WORKER_URL) {
+        console.warn("Missing VITE_PUTER_WORKER_URL; skipping project fetch.");
+        return null;
+    }
+
+    console.log("Fetching project with ID:", id);
+
+    try {
+        const response = await puter.workers.exec(
+            `${PUTER_WORKER_URL}/api/projects/get?id=${encodeURIComponent(id)}`,
+            { method: "GET" },
+        );
+
+        console.log("Fetch project response:", response);
+
+        if (!response.ok) {
+            console.error("Failed to fetch project:", await response.text());
+            return null;
+        }
+
+        const data = (await response.json()) as {
+            project?: DesignItem | null;
+        };
+
+        console.log("Fetched project data:", data);
+
+        return data?.project ?? null;
+    } catch (error) {
+        console.error("Failed to fetch project:", error);
+        return null;
+    }
+};
+
+export const updateProject = async ({ item }: CreateProjectParams): Promise<DesignItem | null | undefined> => {
+    const projectId = item.id;
+    const hosting = await getOrCreateHosingConfig();
+
+    // Only upload rendered image if it's new and not already hosted
+    const hostedRender = projectId && item.renderedImage && !isHostedUrl(item.renderedImage) ?
+        await uploadImageToHosting({ hosting, url: item.renderedImage, projectId, label: "rendered" }) : null;
+
+    const resolvedRender = hostedRender?.url ? 
+        hostedRender?.url 
+        : item.renderedImage && isHostedUrl(item.renderedImage)
+        ? item.renderedImage : undefined;
+
+    const {
+        sourcePath: _sourcePath, 
+        renderedPath: _renderedPath,
+        publicPath: _publicPath,
+        ...rest
+    } = item;
+
+    const payload = {
+        ...rest,
+        renderedImage: resolvedRender
+    }
+
+    try {
+        console.log("Updating project:", projectId, payload);
+        return payload;
+    } catch (error) {
+        console.log("Failed to update project", error);
+        return null;
     }
 };

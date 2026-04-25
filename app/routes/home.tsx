@@ -3,8 +3,8 @@ import { ArrowRight, Clock, Layers } from "lucide-react";
 import { Button } from "../../components/ui/Button";
 import Upload from "../../components/Upload";
 import { useNavigate, useLoaderData } from "react-router";
-import { useState } from "react";
-import { createProject, listProjects } from "../../lib/puter.action";
+import { useEffect, useState } from "react";
+import { createProject, getProjects, listProjects } from "../../lib/puter.action";
 import type { Route } from "../+types/root";
 
 export function meta({ }: Route.MetaArgs) {
@@ -49,6 +49,17 @@ export default function Home() {
 
     return true;
   }
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const items = await getProjects();
+
+      setProjects(items)
+    }
+
+    fetchProjects();
+  }, []);
+
   return (
     <div className="home">
       <Navbar />
@@ -102,8 +113,6 @@ export default function Home() {
           </div>
           <div className="projects-grid">
             {projects.map(({ id, name, renderedImage, sourceImage, timestamp }) => (
-
-
               <div key={id} className="project-card group">
                 <div className="preview">
                   <img src={renderedImage || sourceImage} />
@@ -124,7 +133,6 @@ export default function Home() {
                   <div className="arrow">
                     <ArrowRight size={18} />
                   </div>
-
                 </div>
               </div>
             ))}

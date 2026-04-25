@@ -322,11 +322,11 @@
                     @apply flex flex-wrap items-center gap-3;
 
                     .export {
-                        @apply bg-primary text-white hover:bg-orange-600 h-9 border-none shadow-sm;
+                        @apply bg-primary text-white hover:bg-orange-600 h-9 p-4  border-none shadow-sm;
                     }
 
                     .share {
-                        @apply bg-black text-white h-9 shadow-sm hover:bg-zinc-800;
+                        @apply bg-black text-white h-9 p-4 shadow-sm hover:bg-zinc-800;
                     }
                 }
             }
