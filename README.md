@@ -1,87 +1,73 @@
-# Welcome to React Router!
+# ✨ DreamLand
 
-A modern, production-ready template for building full-stack React applications using React Router.
+**Transform 2D floor plans into stunning 3D visualizations instantly.**
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+DreamLand is an AI-powered interior design and architectural visualizer that helps homeowners, architects, and designers bridge the gap between flat 2D plans and immersive 3D renders.
 
-## Features
+![DreamLand Banner](./public/plan3d.png)
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## 🚀 Key Features
 
-## Getting Started
+- **AI-Powered Rendering**: Converts 2D floor plans or room sketches into high-quality 3D visualizations using the `gemini-2.5-flash-image-preview` model.
+- **Interactive Comparison**: Seamlessly compare the original plan with the AI render using an intuitive before/after slider.
+- **Cloud Persistence**: Integrated with Puter.js to save and manage your projects in the cloud.
+- **High-Quality Export**: Download your rendered visualizations in high resolution for sharing or presentations.
+- **Project Management**: Organize multiple designs and revisit them at any time.
+
+## 🛠️ Tech Stack
+
+- **Frontend**: [React 19](https://react.dev/) + [React Router 7](https://reactrouter.com/)
+- **AI Engine**: [Puter AI](https://puter.com/docs/ai) (Powered by Google Gemini 2.5 Flash)
+- **Backend & Storage**: [Puter.js](https://puter.com/) (Serverless FS, KV, and Hosting)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Visualization**: [React Compare Slider](https://github.com/nerous/react-compare-slider)
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- A [Puter.com](https://puter.com/) account (Puter.js handles authentication automatically)
 
 ### Installation
 
-Install the dependencies:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/dreamland.git
+   cd dreamland
+   ```
 
-```bash
-npm install
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
 ### Development
 
-Start the development server with HMR:
-
+Start the development server:
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+The app will be available at `http://localhost:5173`.
 
-## Building for Production
+## 🏗️ How it Works
 
-Create a production build:
+1. **Upload**: Users upload a 2D floor plan or a photo of a room.
+2. **AI Inference**: The image is sent to the Puter AI SDK with a specialized architectural prompt.
+3. **Visualization**: The resulting 3D render is displayed side-by-side with the original for easy comparison.
+4. **Cloud Storage**: Projects are stored in Puter's decentralized file system, ensuring they are accessible from anywhere.
 
+## ☁️ Deployment
+
+DreamLand is designed to be hosted on **Puter.com**. The application automatically manages its own hosting configuration using the Puter Hosting API.
+
+To build the application for production:
 ```bash
 npm run build
 ```
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
 ---
 
-Built with ❤️ using React Router.
+Built with ❤️ using Puter and React Router.

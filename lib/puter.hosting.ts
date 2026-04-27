@@ -1,8 +1,7 @@
 import puter from "@heyputer/puter.js";
 import { createHostingSlug, fetchBlobFromUrl, getHostedUrl, getImageExtension, HOSTING_CONFIG_KEY, imageUrlToPngBlob, isHostedUrl } from "./utils";
-import type { HostedAsset, HostingConfig, StoreHostedImageParams } from "../type";
 
-export const getOrCreateHosingConfig = async (): Promise<HostingConfig | null> => {
+export const getOrCreateHostingConfig = async (): Promise<HostingConfig | null> => {
     const existing = (await puter.kv.get(HOSTING_CONFIG_KEY)) as HostingConfig | null;
 
     if (existing?.subdomain) return { subdomain: existing.subdomain }
