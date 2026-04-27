@@ -4,7 +4,7 @@ import { generate3DView } from '../../lib/ai.action';
 import { createProject, getProjectById, updateProject } from '../../lib/puter.action';
 import { Box, Download, RefreshCcw, Share2, TruckElectric, X } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
 import { fetchBlobFromUrl, getImageExtension } from '../../lib/utils';
 
 const VisualizerId = () => {
@@ -166,7 +166,7 @@ const VisualizerId = () => {
             </div>
           </div>
 
-          <div className={`render-area ${isProcessing ? 'is-procressing' : ''}`}>
+          <div className={`render-area ${isProcessing ? 'is-processing' : ''}`}>
             {currentImage ? (
 
               <img src={currentImage} alt='AI Render' className='render-img' />
@@ -204,12 +204,13 @@ const VisualizerId = () => {
           <div className='compare-stage'>
             {project?.sourceImage && currentImage ? (
               <ReactCompareSlider
-                defaultValue={50}
-                style={{ width: '100%', height: 'auto' }}
-                itemOne={<ReactCompareSliderImage src={project?.sourceImage} alt='before'
-                  className='compare-img' />}
-                itemTwo={<ReactCompareSliderImage src={currentImage || project?.renderedImage} alt='after'
-                  className='compare-img' />}
+                handle={<ReactCompareSliderHandle />}
+                itemOne={<ReactCompareSliderImage src={project?.sourceImage} alt='before' />}
+                itemTwo={<ReactCompareSliderImage src={currentImage} alt='after' />}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
               />
             ) : (
               <div className='compare-fallback'>

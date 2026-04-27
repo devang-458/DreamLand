@@ -385,15 +385,15 @@
                 }
 
                 .compare-stage {
-                    @apply relative bg-zinc-100 overflow-hidden;
+                    @apply relative bg-zinc-100 overflow-hidden min-h-[400px] md:min-h-[600px] flex items-center justify-center;
                 }
 
                 .compare-fallback {
-                    @apply flex items-center justify-center;
+                    @apply flex items-center justify-center w-full h-full;
                 }
 
                 .compare-img {
-                    @apply w-full h-auto object-contain;
+                    @apply w-full h-full object-contain;
                 }
             }
         }
