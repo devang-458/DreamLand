@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useOutletContext, useParams } from 'react-router';
 import { generate3DView } from '../../lib/ai.action';
 import { createProject, getProjectById, updateProject } from '../../lib/puter.action';
+import { analyzeFloorPlan, validateFloorPlan } from '../../lib/floorplan.analysis';
 import { Box, Download, RefreshCcw, Share2, TruckElectric, X } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
+import FloorPlanExportPanel from '../../components/FloorPlanExportPanel';
 import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
 import { fetchBlobFromUrl, getImageExtension } from '../../lib/utils';
+import type { FloorPlanData } from '../../lib/floorplan.types';
 
 const VisualizerId = () => {
   const navigate = useNavigate();
@@ -20,6 +23,8 @@ const VisualizerId = () => {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
+  const [floorPlanData, setFloorPlanData] = useState<FloorPlanData | null>(null);
+  const [floorPlanError, setFloorPlanError] = useState<string | null>(null);
 
   const handleBack = () => navigate('/');
 
@@ -83,6 +88,20 @@ const VisualizerId = () => {
           });
         }
         setProjects(updatedItem)
+
+        // Analyze floor plan from source image
+        try {
+          if (item.sourceImage) {
+            const raw = await analyzeFloorPlan(item.sourceImage);
+            const validated = await validateFloorPlan(raw);
+            setFloorPlanData(validated);
+            setFloorPlanError(null);
+          }
+        } catch (error) {
+          setFloorPlanError('Could not analyze floor plan. Please try a clearer image.');
+          setFloorPlanData(null);
+          console.error('Floor plan analysis failed:', error);
+        }
       }
     } catch (error) {
       console.error('Generation failed : ', error)
@@ -190,6 +209,13 @@ const VisualizerId = () => {
               </div>
             )}
           </div>
+          {floorPlanError && (
+            <p className='text-red-500 text-sm mt-2'>{floorPlanError}</p>
+          )}
+          <FloorPlanExportPanel
+            floorPlanData={floorPlanData}
+            imageBase64={project?.sourceImage || null}
+          />
         </div>
         <div className='panel compare'>
           <div className='panel-header'>

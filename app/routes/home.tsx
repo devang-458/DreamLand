@@ -34,7 +34,7 @@ export default function Home() {
 
   const handleUploadComplete = async (base64Image: string) => {
     try {
-      if (isCreatingProjectRef.current) return CSSFontFeatureValuesRule
+      if (isCreatingProjectRef.current) return;
       isCreatingProjectRef.current = true;
       const newId = Date.now().toString();
       const name = `Residence ${newId}`;
