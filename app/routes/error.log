@@ -1,0 +1,30 @@
+2:45:18 PM [vite] server restarted.
+Failed to get projects TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at getProjects (D:/Full_Stack_Projects/Saas-Project/DreamLand/lib/puter.action.ts:114:20)
+    at loader (D:/Full_Stack_Projects/Saas-Project/DreamLand/app/routes/home.tsx:34:10)
+    at callRouteHandler (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-2UH5WJXA.mjs:510:16)
+    at commonRoute.loader (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-2UH5WJXA.mjs:661:19)
+    at file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-QFMPRPBF.mjs:4855:19
+    at callLoaderOrAction (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-QFMPRPBF.mjs:4907:16)
+    at async Promise.all (index 0)
+    at defaultDataStrategy (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-QFMPRPBF.mjs:4532:17)
+    at callDataStrategyImpl (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-QFMPRPBF.mjs:4799:17)
+    at callDataStrategy (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-QFMPRPBF.mjs:3825:19)
+    at loadRouteData (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-QFMPRPBF.mjs:3801:19)
+    at queryImpl (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-QFMPRPBF.mjs:3568:20)
+    at Object.query (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-QFMPRPBF.mjs:3427:18)
+    at singleFetchLoaders (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-2UH5WJXA.mjs:969:18)
+    at handleSingleFetchRequest (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-2UH5WJXA.mjs:1435:7)
+    at requestHandler (file:///D:/Full_Stack_Projects/Saas-Project/DreamLand/node_modules/react-router/dist/development/chunk-2UH5WJXA.mjs:1268:18)
+    at nodeHandler (D:\Full_Stack_Projects\Saas-Project\DreamLand\node_modules\@react-router\dev\dist\vite.js:3802:30)
+    at D:\Full_Stack_Projects\Saas-Project\DreamLand\node_modules\@react-router\dev\dist\vite.js:3809:17 {
+  [cause]: AggregateError: 
+      at internalConnectMultiple (node:net:1122:18)
+      at afterConnectMultiple (node:net:1689:7)
+      at TCPConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}

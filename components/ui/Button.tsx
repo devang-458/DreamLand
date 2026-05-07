@@ -19,9 +19,9 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseClass = 'btn'
-  const variantClass = `${baseClass}--variant-${variant}`
-  const sizeClass = `${baseClass}--size-${size}`
-  const fullWidthClass = fullWidth ? `${baseClass}--full-width` : ''
+  const variantClass = `${baseClass}--${variant}`
+  const sizeClass = `${baseClass}--${size}`
+  const fullWidthClass = fullWidth ? `${baseClass}--full` : ''
 
   const combinedClasses = [baseClass, variantClass, sizeClass, fullWidthClass, className]
     .filter(Boolean)
