@@ -1,32 +1,56 @@
 import puter from "@heyputer/puter.js"
 import { getOrCreateHostingConfig, uploadImageToHosting } from "./puter.hosting";
 import { isHostedUrl } from "./utils";
+import { PUTER_WORKER_URL } from "./constants";
 
-// Get PUTER_WORKER_URL lazily to avoid module evaluation errors if env var is missing
-const getPuterWorkerUrl = (): string | null => {
+// Track Puter connection status
+let puterConnected = false;
+let puterConnectAttempted = false;
+
+// Get PUTER_WORKER_URL directly from constants
+const getPuterWorkerUrl = (): string | null => PUTER_WORKER_URL;
+
+// Check if Puter API is reachable
+const checkPuterConnection = async (): Promise<boolean> => {
+    if (puterConnectAttempted) return puterConnected;
+    
+    puterConnectAttempted = true;
     try {
-        const { PUTER_WORKER_URL } = require('./constants');
-        return PUTER_WORKER_URL || null;
-    } catch {
-        return null;
+        // Test connectivity to Puter API by checking auth status (non-blocking)
+        const timeout = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Puter connection timeout')), 3000)
+        );
+        await Promise.race([puter.auth.getUser(), timeout]);
+        puterConnected = true;
+        console.log('✓ Puter API connected');
+        return true;
+    } catch (error) {
+        puterConnected = false;
+        console.warn('⚠ Puter API unavailable - features will be degraded:', error instanceof Error ? error.message : 'Unknown error');
+        return false;
     }
 };
 
 // Initialize Puter with proper configuration
 export const initializePuter = async () => {
     try {
-        // The Puter.js SDK should auto-initialize, but ensure it's ready
         if (typeof window !== 'undefined') {
-            // Puter is initialized globally via the SDK
             console.log('Puter SDK initialized');
+            // Check connection status asynchronously
+            await checkPuterConnection();
         }
     } catch (error) {
         console.error('Failed to initialize Puter:', error);
     }
 };
 
+export const isPuterAvailable = (): boolean => puterConnected;
+
 export const signIn = async () => {
     try {
+        if (!puterConnected) {
+            throw new Error('Puter API not available - check your internet connection or verify Puter service status');
+        }
         return await puter.auth.signIn();
     } catch (error) {
         console.error('Puter sign in failed:', error);
@@ -55,7 +79,12 @@ export const getCurrentUser = async () => {
 export const createProject = async ({ item }: CreateProjectParams): Promise<DesignItem | null | undefined> => {
     const PUTER_WORKER_URL = getPuterWorkerUrl();
     if (!PUTER_WORKER_URL) {
-        console.warn('Missing VITE_PUTER_WORKER_URL: skip project save')
+        console.warn('⚠ Missing VITE_PUTER_WORKER_URL: project save disabled. Configure your Puter worker URL in .env.local')
+        return null;
+    }
+
+    if (!puterConnected) {
+        console.warn('⚠ Puter API not connected: skipping project save. Check internet connection and Puter API status.');
         return null;
     }
 
@@ -111,7 +140,12 @@ export const listProjects = async (): Promise<DesignItem[]> => {
 export const getProjects = async (): Promise<DesignItem[]> => {
     const PUTER_WORKER_URL = getPuterWorkerUrl();
     if (!PUTER_WORKER_URL) {
-        console.warn('Missing VITE_PUTER_WORKER_URL; skip history fetch;');
+        console.warn('⚠ Missing VITE_PUTER_WORKER_URL; skip history fetch; Configure your Puter worker URL in .env.local');
+        return []
+    }
+
+    if (!puterConnected) {
+        console.warn('⚠ Puter API not connected: skipping history fetch. Check internet connection and Puter API status.');
         return []
     }
 
@@ -137,7 +171,12 @@ export const getProjects = async (): Promise<DesignItem[]> => {
 export const getProjectById = async ({ id }: { id: string }): Promise<DesignItem | null> => {
     const PUTER_WORKER_URL = getPuterWorkerUrl();
     if (!PUTER_WORKER_URL) {
-        console.warn("Missing VITE_PUTER_WORKER_URL; skipping project fetch.");
+        console.warn("⚠ Missing VITE_PUTER_WORKER_URL; skipping project fetch. Configure your Puter worker URL in .env.local");
+        return null;
+    }
+
+    if (!puterConnected) {
+        console.warn('⚠ Puter API not connected: skipping project fetch. Check internet connection and Puter API status.');
         return null;
     }
 
@@ -166,7 +205,12 @@ export const getProjectById = async ({ id }: { id: string }): Promise<DesignItem
 export const updateProject = async ({ item }: CreateProjectParams): Promise<DesignItem | null | undefined> => {
     const PUTER_WORKER_URL = getPuterWorkerUrl();
     if (!PUTER_WORKER_URL) {
-        console.warn('Missing VITE_PUTER_WORKER_URL: skip project update')
+        console.warn('⚠ Missing VITE_PUTER_WORKER_URL: skip project update. Configure your Puter worker URL in .env.local')
+        return null;
+    }
+
+    if (!puterConnected) {
+        console.warn('⚠ Puter API not connected: skipping project update. Check internet connection and Puter API status.');
         return null;
     }
 
