@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useOutletContext, useParams } from 'react-rou
 import { generate3DView } from '../../lib/ai.action';
 import { createProject, getProjectById, updateProject } from '../../lib/puter.action';
 import { analyzeFloorPlan, validateFloorPlan } from '../../lib/floorplan.analysis';
-import { Box, Download, RefreshCcw, Share2, TruckElectric, X } from 'lucide-react';
+import { Box, Download, RefreshCcw, Share2, TruckElectric, X, Check, Copy } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import FloorPlanExportPanel from '../../components/FloorPlanExportPanel';
 import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
@@ -25,8 +25,29 @@ const VisualizerId = () => {
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [floorPlanData, setFloorPlanData] = useState<FloorPlanData | null>(null);
   const [floorPlanError, setFloorPlanError] = useState<string | null>(null);
+  
+  // Share feature state
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleBack = () => navigate('/');
+
+  // Get shareable URL
+  const getShareUrl = () => {
+    const baseUrl = window.location.origin;
+    return `${baseUrl}/visualizer/${id}`;
+  };
+
+  // Handle copy to clipboard
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(getShareUrl());
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy link:', error);
+    }
+  };
 
   const handleExport = async () => {
     if (!currentImage) return;
@@ -64,30 +85,36 @@ const VisualizerId = () => {
           renderedPath: result.renderedPath,
           timestamp: Date.now(),
           ownerId: item.ownerId ?? userId ?? null,
-          ispublic: item.isPublic ?? false
+          isPublic: item.isPublic ?? false
         }
 
+        // Save to Puter
         const saved = await createProject({ item: updatedItem, visibility: 'private' })
 
         if (saved) {
           setProjects(saved)
           setCurrentImage(saved.renderedImage || result.renderImage)
+          // Save to localStorage as well
+          localStorage.setItem(`project_${id}`, JSON.stringify(saved));
         }
 
-        // Save the rendered image to the project
+        // Update existing project in Puter
         if (id) {
           await updateProject({
             item: {
               id,
               name,
-              sourceImage: initialImage,
+              sourceImage: item.sourceImage,
               renderedImage: result.renderImage,
               timestamp: Date.now()
             },
             visibility: 'private'
           });
         }
+        
         setProjects(updatedItem)
+        // Save to localStorage
+        localStorage.setItem(`project_${id}`, JSON.stringify(updatedItem));
 
         // Analyze floor plan from source image
         try {
@@ -119,20 +146,59 @@ const VisualizerId = () => {
       }
 
       setIsProjectsLoading(true);
-      const fetchProjects = await getProjectById({ id });
+      
+      // Try to load from Puter first
+      let fetchedProject = await getProjectById({ id });
+
+      // If Puter fails, try localStorage as fallback
+      if (!fetchedProject) {
+        try {
+          const cached = localStorage.getItem(`project_${id}`);
+          if (cached) {
+            fetchedProject = JSON.parse(cached) as DesignItem;
+            console.log('✓ Loaded project from cache');
+          }
+        } catch (error) {
+          console.warn('Failed to load from cache:', error);
+        }
+      } else {
+        // Save to localStorage for persistence
+        try {
+          localStorage.setItem(`project_${id}`, JSON.stringify(fetchedProject));
+        } catch (error) {
+          console.warn('Failed to cache project:', error);
+        }
+      }
 
       if (!isMounted) return;
 
-      setProjects(fetchProjects);
-      setCurrentImage(fetchProjects?.renderedImage || null);
+      setProjects(fetchedProject || null);
+      setCurrentImage(fetchedProject?.renderedImage || null);
       setIsProjectsLoading(false);
       hasInitialGenerated.current = false;
+
+      // If we have project data and floor plan hasn't been analyzed yet, analyze it
+      if (fetchedProject?.sourceImage && !floorPlanData) {
+        try {
+          const raw = await analyzeFloorPlan(fetchedProject.sourceImage);
+          const validated = await validateFloorPlan(raw);
+          if (isMounted) {
+            setFloorPlanData(validated);
+            setFloorPlanError(null);
+          }
+        } catch (error) {
+          if (isMounted) {
+            setFloorPlanError('Could not analyze floor plan. Please try a clearer image.');
+            console.error('Floor plan analysis failed:', error);
+          }
+        }
+      }
     }
 
     loadProject();
 
     return () => { isMounted = false };
-  }, [id])
+  }, [id, floorPlanData])
 
   useEffect(() => {
     if (isProjectLoading || hasInitialGenerated.current || !project?.sourceImage) return
@@ -178,7 +244,7 @@ const VisualizerId = () => {
               >
                 <Download className='w-4 h-4 mr-2' />Export
               </Button>
-              <Button className='share' onClick={() => { }} size='sm'>
+              <Button className='share' onClick={() => setIsShareModalOpen(true)} size='sm'>
                 <Share2 className='w-4 h-4 mr-2' />
                 Share
               </Button>
@@ -249,6 +315,90 @@ const VisualizerId = () => {
           </div>
         </div>
       </section>
+
+      {/* Share Modal */}
+      {isShareModalOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+          onClick={() => setIsShareModalOpen(false)}
+        >
+          <div
+            className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-gray-800">Share Project</h3>
+              <button
+                onClick={() => setIsShareModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700 text-2xl leading-none"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Share Link Section */}
+            <div className="mb-6">
+              <p className="text-sm text-gray-600 mb-3">Share this project with others:</p>
+              <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-3">
+                <input
+                  type="text"
+                  value={getShareUrl()}
+                  readOnly
+                  className="flex-1 bg-transparent text-sm text-gray-700 outline-none"
+                />
+                <button
+                  onClick={handleCopyLink}
+                  className={`px-4 py-2 rounded-md transition-all font-medium flex items-center gap-2 ${
+                    isCopied
+                      ? 'bg-green-500 text-white'
+                      : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                  }`}
+                >
+                  {isCopied ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      Copy Link
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Project Info */}
+            <div className="bg-gray-50 rounded-lg p-4 mb-6">
+              <p className="text-sm font-semibold text-gray-700 mb-2">Project Details:</p>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>
+                  <span className="font-medium">Name:</span> {project?.name || `Residence ${id}`}
+                </li>
+                <li>
+                  <span className="font-medium">Created:</span> {new Date(project?.timestamp || Date.now()).toLocaleDateString()}
+                </li>
+                <li>
+                  <span className="font-medium">Status:</span> {currentImage ? 'Rendered' : 'Processing'}
+                </li>
+              </ul>
+            </div>
+
+            {/* Share Instructions */}
+            <p className="text-xs text-gray-500 mb-4">
+              Sharing this link allows others to view your project. They can download renders but cannot edit the original.
+            </p>
+
+            <button
+              onClick={() => setIsShareModalOpen(false)}
+              className="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
